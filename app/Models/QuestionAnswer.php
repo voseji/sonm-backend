@@ -9,8 +9,22 @@ class QuestionAnswer extends Model
 {
     use HasFactory;
 
+    protected $attach = [
+        'isChecked'
+    ];
+
     public function question()
     {
         return $this->belongsTo(Question::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class, 'answer_id', 'id');
+    }
+
+    public function isChecked($studentId)
+    {
+        return $this->answers()->where('student_id', $studentId);
     }
 }

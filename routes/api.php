@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Http\Request;
@@ -46,3 +47,4 @@ Route::post('uploading-file-api', [FileUploadController::class, 'upload']);
 
 
 Route::get('/subjects', [SubjectController::class, 'index']);
+Route::post('/questions/respond', [ExamController::class, 'store']);

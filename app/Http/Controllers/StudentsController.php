@@ -66,7 +66,7 @@ class StudentsController extends Controller
       $student->nationality = is_null($request->nationality) ? $student->nationality : $request->nationality;
       $student->batch = is_null($request->batch) ? $student->batch : $request->batch;
       $student->time_left = is_null($request->time_left) ? $student->time_left : $request->time_left;
-
+      $student->exam_status = is_null($request->exam_status) ? $student->exam_status : $request->exam_status;
 
       $student->save();
 
