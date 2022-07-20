@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Question;
 use App\Models\QuestionAnswer;
 use App\Models\Students;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ExamController extends Controller
 {
@@ -33,6 +35,40 @@ class ExamController extends Controller
             $new_answer->question_id = $request->questionId;
             $new_answer->is_correct = $answer->is_correct;
             $new_answer->save();
+        }
+    }
+
+    public function uploadQuestions(Request $request)
+    {
+        $this->validate($request, [
+            'questions' => 'required|array',
+            'batchNumber' => 'required|string',
+            'subject' => 'required|string',
+        ]);
+
+        $subject_question_exists = Question::where('subject_id', 1)->where('batch', $request->batch)->get();
+
+        // if ($subject_question_exists) {
+        //     throw new HttpException(400, "Subject questions have already been uploaded for this batch");
+        // }
+        foreach ($request->questions as $key => $question) {
+            \Log::info($key, $question);
+            $newQuestion = new Question();
+            $newQuestion->id = Question::all()->count() + 1;
+            $newQuestion->subject_id = 1;
+            $newQuestion->batch = $request->batchNumber;
+            $newQuestion->question = $question[0];
+            $newQuestion->answer = 'A';
+            $newQuestion->save();
+
+            for ($i = 1; $i < sizeof($question); $i++) {
+                $newQuestionAnswer = new QuestionAnswer();
+                $newQuestionAnswer->question_id = $newQuestion->id;
+                $newQuestionAnswer->key = "A";
+                $newQuestionAnswer->is_correct = substr($question[$i], 0, 2) === '##';
+                $newQuestionAnswer->answer = $question[$i];
+                $newQuestionAnswer->save();
+            }
         }
     }
 }
