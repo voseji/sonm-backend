@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::get('/student/{id}/result', [StudentsController::class, 'getStudentResult']);
 Route::get('students', [StudentsController::class, 'getAllStudents']);
 Route::get('students/{id}', [StudentsController::class, 'getStudent']);
 Route::post('students', [StudentsController::class, 'createStudent']);

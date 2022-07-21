@@ -62,11 +62,13 @@ class ExamController extends Controller
             $newQuestion->save();
 
             for ($i = 1; $i < sizeof($question); $i++) {
+                $is_correct = substr(strval($question[$i]), 0, 2) === '##';
+                \Log::info($question[$i]);
                 $newQuestionAnswer = new QuestionAnswer();
                 $newQuestionAnswer->question_id = $newQuestion->id;
                 $newQuestionAnswer->key = "A";
-                $newQuestionAnswer->is_correct = substr($question[$i], 0, 2) === '##';
-                $newQuestionAnswer->answer = $question[$i];
+                $newQuestionAnswer->is_correct = $is_correct;
+                $newQuestionAnswer->answer = $is_correct ? substr($question[$i], 2) : $question[$i];
                 $newQuestionAnswer->save();
             }
         }

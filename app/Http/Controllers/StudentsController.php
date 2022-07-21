@@ -96,4 +96,8 @@ class StudentsController extends Controller
       ], 404);
     }
   }
+
+  public function getStudentResult($student_id)
+  {
+  }
 }
