@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use Illuminate\Http\Request;
 use App\Models\Students;
+use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
@@ -84,7 +86,7 @@ class StudentsController extends Controller
   public function deleteStudent($id)
   {
     if (Students::where('id', $id)->exists()) {
-      $student = Student::find($id);
+      $student = Students::find($id);
       $student->delete();
 
       return response()->json([
@@ -99,5 +101,8 @@ class StudentsController extends Controller
 
   public function getStudentResult($student_id)
   {
+    $query = "select subjects.subject, count(*) from answers join questions  on questions.id=answers.question_id join subjects on subjects.id=questions.subject_id join students on students.id=answers.student_id GROUP by subjects.id, students.id order by students.id";
+    $result = DB::select(DB::raw($query));
+    return $result;
   }
 }

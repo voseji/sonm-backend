@@ -48,11 +48,10 @@ class ExamController extends Controller
 
         $subject_question_exists = Question::where('subject_id', 1)->where('batch', $request->batch)->get();
 
-        // if ($subject_question_exists) {
-        //     throw new HttpException(400, "Subject questions have already been uploaded for this batch");
-        // }
+        if ($subject_question_exists) {
+            throw new HttpException(400, "Subject questions have already been uploaded for this batch");
+        }
         foreach ($request->questions as $key => $question) {
-            \Log::info($key, $question);
             $newQuestion = new Question();
             $newQuestion->id = Question::all()->count() + 1;
             $newQuestion->subject_id = 1;
@@ -63,7 +62,6 @@ class ExamController extends Controller
 
             for ($i = 1; $i < sizeof($question); $i++) {
                 $is_correct = substr(strval($question[$i]), 0, 2) === '##';
-                \Log::info($question[$i]);
                 $newQuestionAnswer = new QuestionAnswer();
                 $newQuestionAnswer->question_id = $newQuestion->id;
                 $newQuestionAnswer->key = "A";
