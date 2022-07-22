@@ -99,9 +99,16 @@ class StudentsController extends Controller
     }
   }
 
-  public function getStudentResult($student_id)
+  public function getStudentResult()
   {
-    $query = "select subjects.subject, count(*) from answers join questions  on questions.id=answers.question_id join subjects on subjects.id=questions.subject_id join students on students.id=answers.student_id GROUP by subjects.id, students.id order by students.id";
+    $query = "select students.*, subjects.subject, count(*) as subject_score from answers join questions  on questions.id=answers.question_id join subjects on subjects.id=questions.subject_id join students on students.id=answers.student_id GROUP by subjects.id, students.id order by students.id";
+    $result = DB::select(DB::raw($query));
+    return $result;
+  }
+
+  public function getAllStudentResult()
+  {
+    $query = "select students.*, SUM(is_correct) as total_score from answers join students on students.id=answers.student_id GROUP by students.id ";
     $result = DB::select(DB::raw($query));
     return $result;
   }

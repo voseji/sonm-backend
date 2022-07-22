@@ -53,7 +53,7 @@ class ExamController extends Controller
         }
         foreach ($request->questions as $key => $question) {
             $newQuestion = new Question();
-            $newQuestion->id = Question::all()->count() + 1;
+            // $newQuestion->id = Question::all()->count() + 1;
             $newQuestion->subject_id = 1;
             $newQuestion->batch = $request->batchNumber;
             $newQuestion->question = $question[0];
