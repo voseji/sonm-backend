@@ -112,4 +112,11 @@ class StudentsController extends Controller
     $result = DB::select(DB::raw($query));
     return $result;
   }
+
+  public function getStudentBatches()
+  {
+    $query = "select students.batch from students GROUP by students.batch ";
+    $result = DB::select(DB::raw($query));
+    return $result;
+  }
 }
