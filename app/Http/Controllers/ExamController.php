@@ -6,6 +6,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Models\QuestionAnswer;
 use App\Models\Students;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -19,7 +20,7 @@ class ExamController extends Controller
             'studentId' => 'required|string',
             'answerId' => 'required|numeric',
         ]);
-
+        \Log::info($request->studentId);
         $student = Students::where('registrationNumber', $request->studentId)->first();
         $answer = QuestionAnswer::find($request->answerId);
         $existingResponse = Answer::where('question_id', $request->questionId)->where('student_id', $student->id)->first();
@@ -43,18 +44,20 @@ class ExamController extends Controller
         $this->validate($request, [
             'questions' => 'required|array',
             'batchNumber' => 'required|string',
-            'subject' => 'required|string',
+            'subject' => 'required|numeric',
         ]);
 
-        $subject_question_exists = Question::where('subject_id', 1)->where('batch', $request->batch)->get();
+        $subject = Subject::where('subject', $request->subject)->orWhere('id', $request->subject)->first();
+        \Log::info($subject);
+        $subject_question_exists = Question::where('subject_id', $subject->id)->count();
 
         if ($subject_question_exists) {
-            throw new HttpException(400, "Subject questions have already been uploaded for this batch");
+            throw new HttpException(400, "Subject questions have already been uploaded");
         }
         foreach ($request->questions as $key => $question) {
             $newQuestion = new Question();
             // $newQuestion->id = Question::all()->count() + 1;
-            $newQuestion->subject_id = 1;
+            $newQuestion->subject_id = $subject->id;
             $newQuestion->batch = $request->batchNumber;
             $newQuestion->question = $question[0];
             $newQuestion->answer = 'A';

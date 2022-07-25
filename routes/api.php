@@ -49,5 +49,6 @@ Route::post('uploading-file-api', [FileUploadController::class, 'upload']);
 
 
 Route::get('/subjects', [SubjectController::class, 'index']);
+Route::get('/test/subjects/{student_id}', [SubjectController::class, 'getTestQuestions']);
 Route::post('/questions/respond', [ExamController::class, 'store']);
 Route::post('/questions', [ExamController::class, 'uploadQuestions']);
