@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 class SubjectController extends Controller
 {
     //
+
+      public function oneSubject(Request $request, $id)
+  {
+    // \Log::info($id);
+    return Subject::where('id', $id)->firstOrFail();
+  }
+
     public function getTestQuestions($student_id)
     {
         $subjects = Subject::whereHas('questions', function ($query) {

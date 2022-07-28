@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\BatchesController;
+use App\Http\Controllers\QuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::get('passport/{special}', [FileUploadController::class, 'getImage']);
 Route::post('uploading-file-api', [FileUploadController::class, 'upload']);
 
 
+Route::get('/subject/{id}', [SubjectController::class, 'oneSubject']);
 Route::get('/subjects', [SubjectController::class, 'index']);
 Route::get('/test/subjects/{student_id}', [SubjectController::class, 'getTestQuestions']);
 Route::post('/questions/respond', [ExamController::class, 'store']);
@@ -56,3 +58,8 @@ Route::post('/questions', [ExamController::class, 'uploadQuestions']);
 
 Route::get('/batches', [BatchesController::class, 'getAllBatches']);
 Route::post('/batches', [BatchesController::class, 'createBatches']);
+
+Route::get('/subject_questions/{subject_id}', [QuestionsController::class, 'getQuestion']);
+Route::get('/one_question/{id}', [QuestionsController::class, 'getOneQuestion']);
+
+Route::get('/get_answers/{id}', [QuestionsController::class, 'getAnswers']);
