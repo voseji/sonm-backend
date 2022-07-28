@@ -74,4 +74,21 @@ class ExamController extends Controller
             }
         }
     }
+
+
+    public function updateQuestion(Request $request, $question_id){
+        $question = Question::findOrFail($question_id);
+
+        $question->question = $request->question;
+        $question->save();
+
+        foreach($request->answers as $answerItem){
+                $is_correct = substr(strval($answerItem['answer']), 0, 2) === '##';
+            
+            $answer = QuestionAnswer::find($answerItem['id']);
+            $answer->is_correct = $is_correct;
+            $answer->answer = $is_correct ? substr($answerItem['answer'], 2) : $answerItem['answer'];
+            $answer->save();
+        }
+    }
 }
