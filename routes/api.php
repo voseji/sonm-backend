@@ -63,3 +63,4 @@ Route::get('/subject_questions/{subject_id}', [QuestionsController::class, 'getQ
 Route::get('/one_question/{id}', [QuestionsController::class, 'getOneQuestion']);
 
 Route::get('/get_answers/{id}', [QuestionsController::class, 'getAnswers']);
+Route::patch('/batches/{batch_id}', [BatchesController::class, 'updateBatch']);

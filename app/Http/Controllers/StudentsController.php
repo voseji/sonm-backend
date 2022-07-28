@@ -45,7 +45,7 @@ class StudentsController extends Controller
   // Pull one student record
   public function getStudent($id)
   {
-    return Students::where('registrationNumber', $id)->firstOrFail();
+    return Students::with(['batchData'])->where('registrationNumber', $id)->firstOrFail();
   }
 
   // Updating records endpoint

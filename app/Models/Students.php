@@ -10,6 +10,10 @@ class Students extends Model
     use HasFactory;
     protected $table = 'students';
 
-    protected $fillable = ['registrationNumber','formNumber', 'firstName', 'lastName', 'otherNames', 'email', 'gender', 'maritalStatus', 'dateOfBirth', 'phoneNumber1', 'phoneNumber2', 'stateOfOrigin', 'lga', 'nationality', 'batch'];
+    protected $fillable = ['registrationNumber', 'formNumber', 'firstName', 'lastName', 'otherNames', 'email', 'gender', 'maritalStatus', 'dateOfBirth', 'phoneNumber1', 'phoneNumber2', 'stateOfOrigin', 'lga', 'nationality', 'batch'];
 
+    public function batchData()
+    {
+        return $this->belongsTo(Batch::class, 'batch', 'batch');
+    }
 }
