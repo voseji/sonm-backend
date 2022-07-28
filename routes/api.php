@@ -6,6 +6,7 @@ use App\Http\Controllers\SettingsController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\BatchesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,6 @@ Route::get('/subjects', [SubjectController::class, 'index']);
 Route::get('/test/subjects/{student_id}', [SubjectController::class, 'getTestQuestions']);
 Route::post('/questions/respond', [ExamController::class, 'store']);
 Route::post('/questions', [ExamController::class, 'uploadQuestions']);
+
+Route::get('/batches', [BatchesController::class, 'getAllBatches']);
+Route::post('/batches', [BatchesController::class, 'createBatches']);

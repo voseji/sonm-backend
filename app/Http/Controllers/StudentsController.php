@@ -51,6 +51,7 @@ class StudentsController extends Controller
   // Updating records endpoint
   public function updateStudent(Request $request, $id)
   {
+    //\Log::info($request->all());
     if (Students::where('id', $id)->orWhere('registrationNumber', $id)->exists()) {
       $student = Students::where('id', $id)->orWhere('registrationNumber', $id)->first();
       $student->formNumber = is_null($request->formNumber) ? $student->formNumber : $request->formNumber;
