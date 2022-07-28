@@ -10,6 +10,6 @@ class Batches extends Model
     use HasFactory;
     protected $table = 'batches';
 
-    protected $fillable = ['batchId','batch', 'day', 'time'];
+    protected $fillable = ['batchId','batch', 'day', 'time', 'status'];
 
 }

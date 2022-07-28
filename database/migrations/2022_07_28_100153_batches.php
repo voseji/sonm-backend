@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('batch')->nullable();
             $table->string('day')->nullable();
             $table->string('time')->nullable();
+            $table->string('status')->default('inactive');
+            
             $table->timestamps();
             $table->softDeletes();
             });

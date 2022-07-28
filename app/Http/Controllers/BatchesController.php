@@ -21,7 +21,7 @@ class BatchesController extends Controller
     $batch->batch = $request->batch;
     $batch->day = $request->day;
     $batch->time = $request->time;
-
+    // $batch->status = $request->status;
 
     $batch->save();
 
