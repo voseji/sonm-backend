@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batch;
 use Illuminate\Http\Request;
 use App\Models\Batches;
 
@@ -31,4 +32,10 @@ class BatchesController extends Controller
   }
 
 
+  public function updateBatch(Request $request, $batch_id)
+  {
+    $batch = Batch::findOrFail($batch_id);
+    $batch->update($request->except(['id']));
+    \Log::info($batch);
+  }
 }

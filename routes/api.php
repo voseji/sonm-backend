@@ -56,3 +56,4 @@ Route::post('/questions', [ExamController::class, 'uploadQuestions']);
 
 Route::get('/batches', [BatchesController::class, 'getAllBatches']);
 Route::post('/batches', [BatchesController::class, 'createBatches']);
+Route::patch('/batches/{batch_id}', [BatchesController::class, 'updateBatch']);
