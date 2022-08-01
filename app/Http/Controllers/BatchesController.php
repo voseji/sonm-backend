@@ -8,6 +8,13 @@ use App\Models\Batches;
 
 class BatchesController extends Controller
 {
+
+//       public function __construct()
+//     {
+//         $this->middleware('auth:api');
+// // return response()->json([ 'valid' => auth()->check() ]);
+//     }
+    
   // Pull all batches
   public function getAllBatches()
   {
